@@ -98,17 +98,17 @@ define gui.main_menu_text_color = "#363636"
 ## time.
 
 ## The height of the textbox containing dialogue.
-define gui.textbox_height = 185
+define gui.textbox_height = 200
 
 ## The placement of the textbox vertically on the screen. 0.0 is the top, 0.5 is
 ## center, and 1.0 is the bottom.
-define gui.textbox_yalign = 1.0
+define gui.textbox_yalign = 0.95
 
 
 ## The placement of the speaking character's name, relative to the textbox.
 ## These can be a whole number of pixels from the left or top, or 0.5 to center.
-define gui.name_xpos = 240
-define gui.name_ypos = 0
+define gui.name_xpos = 100
+define gui.name_ypos = -130
 
 ## The horizontal alignment of the character's name. This can be 0.0 for left-
 ## aligned, 0.5 for centered, and 1.0 for right-aligned.
@@ -118,6 +118,7 @@ define gui.name_xalign = 0.0
 ## None to automatically size it.
 define gui.namebox_width = None
 define gui.namebox_height = None
+define gui.namebox_padding = (50, 20, 50, 20)
 
 ## The borders of the box containing the character's name, in left, top, right,
 ## bottom order.

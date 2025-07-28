@@ -1,6 +1,6 @@
 ﻿# Declare characters used by this game.
-define s = Character(_("Sylvie"), color="#c8ffc8")
-define m = Character(_("Me"), color="#c8c8ff")
+define s = Character(_("Sylvie"), color="#000000")
+define m = Character(_("Me"), color="#050579")
 
 # This is a variable that is True if you've compared a VN to a book, and False
 # otherwise.
@@ -51,8 +51,9 @@ label start:
 
 
 label rightaway:
+    
 
-    show sylvie green smile
+    show sylvie icon at left
 
     s "Hi there! How was class?"
 

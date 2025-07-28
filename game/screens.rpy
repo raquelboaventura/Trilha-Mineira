@@ -140,7 +140,7 @@ style namebox:
     ysize gui.namebox_height
 
     background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
-    padding gui.namebox_borders.padding
+    padding gui.namebox_padding
 
 style say_label:
     properties gui.text_properties("name", accent=True)
@@ -235,7 +235,7 @@ screen quick_menu():
 
     ## Ensure this appears on top of other screens.
     zorder 100
-
+    
     if quick_menu:
 
         hbox:
@@ -244,15 +244,15 @@ screen quick_menu():
             xalign 0.5
             yalign 1.0
 
-            textbutton _("Back") action Rollback()
-            textbutton _("History") action ShowMenu('history')
-            textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
-            textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Save") action ShowMenu('save')
-            textbutton _("Q.Save") action QuickSave()
-            textbutton _("Q.Load") action QuickLoad()
-            textbutton _("Prefs") action ShowMenu('preferences')
-
+            imagebutton auto "gui/button/return_%s.png" action Rollback()
+            # textbutton _("History") action ShowMenu('history')
+            imagebutton auto "gui/button/play_%s.png" action Preference("auto-forward", "toggle")
+            imagebutton auto "gui/button/mochila_%s.png" action ShowMenu('save')
+            imagebutton auto "gui/button/save_%s.png" action QuickSave()
+            # textbutton _("Q.Load") action QuickLoad()
+            imagebutton auto "gui/button/preferencias_%s.png" action ShowMenu('preferences')
+        imagebutton auto "gui/button/skip_%s.png" action Skip() alternate Skip(fast=True, confirm=True) xpos 900 ypos 10
+    
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
 ## the player has not explicitly hidden the interface.

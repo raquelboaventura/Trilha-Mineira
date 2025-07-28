@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 309: vbox expects a non-empty block.
-    if renpy.variant("pc"):
-                           ^
+File "game/screens.rpy", line 100: expected a keyword argument or end of line.
+    zorder 2 00
+             ^
 
 Ren'Py Version: Ren'Py 8.4.1.25072401
-Mon Jul 28 12:23:25 2025
+Mon Jul 28 17:02:27 2025
