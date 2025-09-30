@@ -96,6 +96,7 @@ style frame:
 ## https://www.renpy.org/doc/html/screen_special.html#say
 
 screen say(who, what):
+    style_prefix "say"
 
     window:
         id "window"
@@ -103,6 +104,7 @@ screen say(who, what):
         if who is not None:
 
             window:
+                id "namebox"
                 style "namebox"
                 text who id "who"
 
@@ -111,9 +113,6 @@ screen say(who, what):
 
     ## If there's a side image, display it above the text. Do not display on the
     ## phone variant - there's no room.
-    if not renpy.variant("small"):
-        add SideImage() xalign 0.0 yalign 1.0
-
 
 style window is default
 style say_label is default
@@ -126,6 +125,7 @@ style namebox_label is say_label
 
 style window:
     xalign 0.5
+    xpos 800
     xfill True
     yalign gui.textbox_yalign
     ysize gui.textbox_height
@@ -235,14 +235,15 @@ screen quick_menu():
 
     ## Ensure this appears on top of other screens.
     zorder 100
-    
-    if quick_menu:
+    add "gui/quick_menu_bg.png" xalign 0.5 yalign 0.01  # Coloque o caminho da sua imagem aqui
 
+    if quick_menu:
+        
         hbox:
             style_prefix "quick"
 
             xalign 0.5
-            yalign 1.0
+            yalign 0.005
 
             imagebutton auto "gui/button/return_%s.png" action Rollback()
             # textbutton _("History") action ShowMenu('history')
@@ -251,7 +252,7 @@ screen quick_menu():
             imagebutton auto "gui/button/save_%s.png" action QuickSave()
             # textbutton _("Q.Load") action QuickLoad()
             imagebutton auto "gui/button/preferencias_%s.png" action ShowMenu('preferences')
-        imagebutton auto "gui/button/skip_%s.png" action Skip() alternate Skip(fast=True, confirm=True) xpos 900 ypos 10
+        imagebutton auto "gui/button/skip_%s.png" action Skip() alternate Skip(fast=True, confirm=True) xpos 1040 ypos 10
     
 
 ## This code ensures that the quick_menu screen is displayed in-game, whenever
@@ -286,9 +287,9 @@ screen navigation():
         style_prefix "navigation"
         
         if main_menu:
-            xpos 0.4
+            xpos 0.7
         else:
-            xpos 1
+            xpos 80
         
         yalign 0.5
 
@@ -297,18 +298,21 @@ screen navigation():
         if main_menu:
 
             imagebutton auto "gui/button/novo_jogo_%s.png" action Start()  xalign 0.5 yalign 0.5 ypos 250
-            imagebutton auto "gui/button/livro_%s.png" action ShowMenu("load") xpos 620 ypos -190
+            imagebutton auto "gui/button/livro_%s.png" action ShowMenu("load") xpos 190 ypos -100
 
-            imagebutton auto "gui/button/opcoes_%s.png" action ShowMenu("preferences")  xalign 0.5 yalign 0.4 ypos 180
-            imagebutton auto "gui/button/coin_%s.png" action ShowMenu("about") xpos 700 ypos -380
+            imagebutton auto "gui/button/opcoes_%s.png" action ShowMenu("preferences")  xalign 0.5 yalign 0.1 ypos 125
+            imagebutton auto "gui/button/coin_%s.png" action ShowMenu("about") xpos 100 ypos -300
             
             if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
                 ## Help isn't necessary or relevant to mobile devices.
-                imagebutton auto "gui/button/info_%s.png" action ShowMenu("help") xpos 550 ypos -455
+                imagebutton auto "gui/button/info_%s.png" action ShowMenu("help") xpos 270 ypos -370
             if renpy.variant("pc"):
                 ## The quit button is banned on iOS and unnecessary on Android and Web.
                 imagebutton auto "gui/button/sair_%s.png" action Quit(confirm=not main_menu) 
+            imagebutton auto "gui/button/itchio_%s.svg" action ShowMenu("about") xpos -890 ypos -350 at Transform(zoom=0.5)
+            imagebutton auto "gui/button/steam_%s.svg" action ShowMenu("about") xpos -890 ypos -320 at Transform(zoom=0.5)
+            imagebutton auto "gui/button/instagram_%s.svg" action ShowMenu("about") xpos -890 ypos -290 at Transform(zoom=0.5)
 
         else:
 
@@ -358,7 +362,8 @@ screen main_menu():
 
     style_prefix "main_menu"
 
-    add gui.main_menu_background
+    add gui.main_menu_background zoom 0.70
+
 
     ## This empty frame darkens the main menu.
     frame:
@@ -388,10 +393,13 @@ style main_menu_frame:
     xsize 280
     yfill True
 
-    background "gui/overlay/main_menu.png"
+    # background "gui/overlay/main_menu.png"
+
+style main_menu_quick_hbox is hbox:
+    background "gui/menu_bar.png"
 
 style main_menu_vbox:
-    xalign 1.5
+    xalign 0.5
     xoffset -20
     xsize 960
     yalign 0.2
@@ -506,7 +514,7 @@ style game_menu_navigation_frame:
     yfill True
 
 style game_menu_content_frame:
-    left_margin 40
+    left_margin 200
     right_margin 20
     top_margin 10
 
@@ -789,35 +797,6 @@ screen preferences():
                     textbutton _("After Choices") action Preference("after choices", "toggle")
                     textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
 
-                ## Additional vboxes of type "radio_pref" or "check_pref" can be
-                ## added here, to add additional creator-defined preferences.
-
-#begin language_picker
-
-                vbox:
-                    style_prefix "radio"
-                    label _("Language")
-
-                    textbutton "English" text_font "DejaVuSans.ttf" action Language(None)
-                    textbutton "Česky" text_font "DejaVuSans.ttf" action Language("czech")
-                    textbutton "Dansk" text_font "DejaVuSans.ttf" action Language("danish")
-                    textbutton "Français" text_font "DejaVuSans.ttf" action Language("french")
-                    textbutton "Italiano" text_font "DejaVuSans.ttf" action Language("italian")
-                    textbutton "Bahasa Melayu" text_font "DejaVuSans.ttf" action Language("malay")
-                    textbutton "Русский" text_font "DejaVuSans.ttf" action Language("russian")
-
-                vbox:
-                    style_prefix "radio"
-                    label _(" ")
-
-                    textbutton "Español" text_font "DejaVuSans.ttf" action Language("spanish")
-                    textbutton "Українська" text_font "DejaVuSans.ttf" action Language("ukrainian")
-                    textbutton "日本語" text_font "SourceHanSansLite.ttf" action Language("japanese")
-                    textbutton "한국어" text_font "SourceHanSansLite.ttf" action Language("korean")
-                    textbutton "简体中文" text_font "SourceHanSansLite.ttf" action Language("schinese")
-                    textbutton "繁體中文" text_font "SourceHanSansLite.ttf" action Language("tchinese")
-
-#end language_picker
 
             null height (4 * gui.pref_spacing)
 
@@ -1313,7 +1292,7 @@ style skip_text:
 style skip_triangle:
     ## We have to use a font that has the BLACK RIGHT-POINTING SMALL TRIANGLE
     ## glyph in it.
-    font "DejaVuSans.ttf"
+    font "Jersey25-Regular.otf"
 
 
 ## Notify screen ###############################################################

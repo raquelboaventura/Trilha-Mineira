@@ -1,141 +1,23 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/gui.rpy", line 105, in script
-    define gui.textbox_yalign = 0.95.ç
-  File "game/gui.rpy", line 105, in <module>
-    define gui.textbox_yalign = 0.95.ç
-                                ^^^^^^
-AttributeError: 'float' object has no attribute 'ç'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "game/gui.rpy", line 105, in script
-    define gui.textbox_yalign = 0.95.ç
-  File "game/gui.rpy", line 105, in script
-    define gui.textbox_yalign = 0.95.ç
-  File "game/screens.rpy", line 1326, in execute
-    screen notify(message):
-  File "game/screens.rpy", line 1326, in execute
-    screen notify(message):
-  File "game/screens.rpy", line 1331, in execute
-    frame at notify_appear:
-  File "game/screens.rpy", line 1331, in keywords
-    frame at notify_appear:
-  File "game/screens.rpy", line 1331, in <module>
-    frame at notify_appear:
-             ^^^^^^^^^^^^^ 
-NameError: name 'notify_appear' is not defined
+  File "game/script.rpy", line 40, in script
+    jump continue
+renpy.script.LabelNotFound: could not find label 'continue'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Traceback (most recent call last):
-  File "game/gui.rpy", line 105, in script
-    define gui.textbox_yalign = 0.95.ç
-  File "renpy/ast.py", line 2452, in execute
-    self.set()
-    ~~~~~~~~^^
-  File "renpy/ast.py", line 2464, in set
-    value = renpy.python.py_eval_bytecode(self.code.bytecode)
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
-  File "renpy/python.py", line 1285, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "game/gui.rpy", line 105, in <module>
-    define gui.textbox_yalign = 0.95.ç
-                                ^^^^^^
-AttributeError: 'float' object has no attribute 'ç'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "renpy/bootstrap.py", line 376, in bootstrap
-    renpy.main.main()
-    ~~~~~~~~~~~~~~~^^
-  File "renpy/main.py", line 506, in main
-    node.execute_init()
-    ~~~~~~~~~~~~~~~~~^^
-  File "renpy/ast.py", line 1071, in execute_init
-    renpy.game.context().run(self.block[0])
-    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
-  File "game/gui.rpy", line 105, in script
-    define gui.textbox_yalign = 0.95.ç
-  File "game/gui.rpy", line 105, in script
-    define gui.textbox_yalign = 0.95.ç
-  File "renpy/display/error.py", line 135, in report_exception
-    renpy.game.invoke_in_new_context(
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        call_exception_screen,
-        ^^^^^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-        ignore_action=ignore_action,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "renpy/game.py", line 301, in invoke_in_new_context
-    return callable(*args, **kwargs)
-           ~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "renpy/display/error.py", line 44, in call_exception_screen
-    return renpy.ui.interact(mouse="screen", type="screen", suppress_overlay=True, suppress_underlay=True)
-           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/ui.py", line 304, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/display/core.py", line 2219, in interact
-    repeat, rv = self.interact_core(
-                 ~~~~~~~~~~~~~~~~~~^
-        preloads=preloads,
-        ^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-        **kwargs,
-        ^^^^^^^^^
-    )  # type: ignore
-    ^                
-  File "renpy/display/core.py", line 2757, in interact_core
-    root_widget.visit_all(lambda d: d.per_interact())
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/display/displayable.py", line 432, in visit_all
-    d.visit_all(callback, seen)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "renpy/display/displayable.py", line 432, in visit_all
-    d.visit_all(callback, seen)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "renpy/display/displayable.py", line 432, in visit_all
-    d.visit_all(callback, seen)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
-  File "renpy/display/screen.py", line 503, in visit_all
-    callback(self)
-    ~~~~~~~~^^^^^^
-  File "renpy/display/core.py", line 2757, in <lambda>
-    root_widget.visit_all(lambda d: d.per_interact())
-                                    ~~~~~~~~~~~~~~^^ 
-  File "renpy/display/screen.py", line 514, in per_interact
-    self.update()
-    ~~~~~~~~~~~^^
-  File "renpy/display/screen.py", line 715, in update
-    self.screen.function(**self.scope)
-    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
-  File "game/screens.rpy", line 1326, in execute
-    screen notify(message):
-  File "game/screens.rpy", line 1326, in execute
-    screen notify(message):
-  File "game/screens.rpy", line 1331, in execute
-    frame at notify_appear:
-  File "game/screens.rpy", line 1331, in keywords
-    frame at notify_appear:
-  File "renpy/python.py", line 1292, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/python.py", line 1285, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "game/screens.rpy", line 1331, in <module>
-    frame at notify_appear:
-             ^^^^^^^^^^^^^ 
-NameError: name 'notify_appear' is not defined
+  File "game/script.rpy", line 40, in script
+    jump continue
+  File "renpy/ast.py", line 1928, in execute
+    rv = renpy.game.script.lookup(target)
+         ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "renpy/script.py", line 1161, in lookup
+    raise LabelNotFound(original)
+renpy.script.LabelNotFound: could not find label 'continue'.
 
 Windows-11-10.0.26100-SP0 AMD64
 Ren'Py 8.4.1.25072401
 Trilha Mineira 7.0
-Mon Jul 28 15:56:44 2025
+Tue Sep 30 14:30:39 2025

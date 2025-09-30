@@ -48,7 +48,7 @@ define gui.muted_color = '#512800'
 define gui.hover_muted_color = '#7a3d00'
 
 ## The colors used for dialogue and menu choice text.
-define gui.text_color = '#353333'
+define gui.text_color = '#ffffff'
 define gui.interface_text_color = '#ffffff'
 
 
@@ -64,16 +64,16 @@ define gui.name_text_font = "Jersey25-Regular.otf"
 define gui.interface_text_font = "Jersey25-Regular.otf"
 
 ## The size of normal dialogue text.
-define gui.text_size = 22
+define gui.text_size = 35
 
 ## The size of character names.
 define gui.name_text_size = 30
 
 ## The size of text in the game's user interface.
-define gui.interface_text_size = 24
+define gui.interface_text_size = 35
 
 ## The size of labels in the game's user interface.
-define gui.label_text_size = 28
+define gui.label_text_size = 30
 
 ## The size of text on the notify screen.
 define gui.notify_text_size = 16
@@ -85,7 +85,7 @@ define gui.title_text_size = 50
 ## Main and Game Menus #########################################################
 
 ## The images used for the main and game menus.
-define gui.main_menu_background = "gui/main_menu.png"
+define gui.main_menu_background = Movie(play="gui/teste-animacao.webm", fit="cover") 
 define gui.game_menu_background = "gui/game_menu.png"
 
 ## The color of the main menu.
@@ -102,13 +102,13 @@ define gui.textbox_height = 200
 
 ## The placement of the textbox vertically on the screen. 0.0 is the top, 0.5 is
 ## center, and 1.0 is the bottom.
-define gui.textbox_yalign = 0.95
+define gui.textbox_yalign = 0.98
 
 
 ## The placement of the speaking character's name, relative to the textbox.
 ## These can be a whole number of pixels from the left or top, or 0.5 to center.
-define gui.name_xpos = 100
-define gui.name_ypos = -130
+define gui.name_xpos = 200
+define gui.name_ypos = -30
 
 ## The horizontal alignment of the character's name. This can be 0.0 for left-
 ## aligned, 0.5 for centered, and 1.0 for right-aligned.
@@ -133,7 +133,7 @@ define gui.namebox_tile = False
 ## number of pixels relative to the left or top side of the textbox, or 0.5 to
 ## center.
 define gui.dialogue_xpos = 268
-define gui.dialogue_ypos = 50
+define gui.dialogue_ypos = 65
 
 ## The maximum width of dialogue text, in pixels.
 define gui.dialogue_width = 744
@@ -173,7 +173,7 @@ define gui.button_text_insensitive_color = gui.insensitive_color
 
 ## The horizontal alignment of the button text. (0.0 is left, 0.5 is center, 1.0
 ## is right).
-define gui.button_text_xalign = 0.0
+define gui.button_text_xalign = 0.5
 
 
 ## These variables override settings for different kinds of buttons. Please see
@@ -262,10 +262,10 @@ define gui.choice_spacing = 22
 define gui.navigation_spacing = 4
 
 ## Controls the amount of spacing between preferences.
-define gui.pref_spacing = 10
+define gui.pref_spacing = 20
 
 ## Controls the amount of spacing between preference buttons.
-define gui.pref_button_spacing = 0
+define gui.pref_button_spacing = 20
 
 ## The spacing between file page buttons.
 define gui.page_spacing = 0

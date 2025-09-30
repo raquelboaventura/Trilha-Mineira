@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 100: expected a keyword argument or end of line.
-    zorder 2 00
-             ^
+File "game/script.rpy", line 16: invalid syntax
+    renpy.movie_cutscene("gui/splash-l3.webm") with dissolve
+                                                     ^^^^
 
 Ren'Py Version: Ren'Py 8.4.1.25072401
-Mon Jul 28 17:02:27 2025
+Fri Aug 15 03:55:13 2025

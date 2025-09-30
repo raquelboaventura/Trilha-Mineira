@@ -1,0 +1,27 @@
+# Ignorar arquivos gerados pelo Ren'Py
+game/saves/
+game/traceback.txt
+renpy/
+!renpy/common/
+!renpy/launcher.py
+!renpy/web/
+
+# Ignorar arquivos de cache
+**/*.pyc
+__pycache__/
+
+# Ignorar o executável e o pacote do jogo
+# (dependendo da sua plataforma)
+*.exe
+*.zip
+*.app
+*.dmg
+
+# Ignorar arquivos de projeto do editor
+# (Exemplo: Visual Studio Code)
+.vscode/
+
+# Arquivos de log e temporários
+*.log
+*.tmp
+game/saves/*~
