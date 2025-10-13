@@ -24,4 +24,26 @@ __pycache__/
 # Arquivos de log e temporários
 *.log
 *.tmp
-game/saves/*~
+/saves
+errors.txt
+log.txt
+traceback.txt
+game/00warper.rpy
+game/cache/
+game/00warper.rpyc
+game/ActionEditor_config.rpy
+game/ActionEditor_config.rpyc
+game/ActionEditor_screens.rpy
+game/ActionEditor_screens.rpyc
+game/ActionEditor.rpy
+game/ActionEditor.rpyc
+game/ATL_functions.rpy
+game/ATL_functions.rpyc
+game/image_viewer.rpy
+game/image_viewer.rpyc
+game/keymap.rpy
+game/keymap.rpyc
+game/menu_screen.rpy
+game/menu_screen.rpyc
+game/sound_viewer.rpy
+game/sound_viewer.rpyc

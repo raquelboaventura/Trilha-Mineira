@@ -29,15 +29,15 @@ define config.version = "7.0"
 ## Text that is placed on the game's about screen. To insert a blank line
 ## between paragraphs, write \n\n.
 
-define gui.about = _("""Character Art: Deji.
-Original Character Art: derik.
+define gui.about = _("""Character Art: Maka.
+Original Character Art: Maka.
 
-Background Art: Mugenjohncel.
-Original Background Art: DaFool
+Background Art: Maka, Raquel, Gemini.
+Original Background Art: Gemini
 
-Music By: Alessio
+Music By: Carlos
 
-Written By: mikey""")
+Written By: Iara""")
 
 
 ## A short name for the game used for executables and directories in the built

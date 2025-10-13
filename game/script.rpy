@@ -1,7 +1,10 @@
-﻿define s = Character(_("Sylvie"), color="#000000", image="side")
+﻿define s = Character(_("Aline"), color="#f75f00", image="side")
 define m = Character(_("Me"), color="#050579")
 
-image side sylvie = "images/sylvie_side.png"
+# Definição correta da imagem lateral (Side Image)
+# Nome da imagem é 'side aline feliz'
+image side aline feliz = "images/aline feliz.png" 
+
 default book = False
 
 image ministerio_cultura = "gui/min-cult.png"
@@ -29,10 +32,18 @@ label splashscreen:
 
 label start:
     scene mmbg
-    show sylvie_side at left
-    s "Oi, eu sou a Sylvie! Minha imagem deve aparecer acima da caixa de texto."
-    m "Olá, Sylvie! Eu não tenho imagem lateral."
-    s "Se você está vendo minha imagem acima da caixa, está funcionando!"
+
+    # CORREÇÃO: Chamando a imagem pelo seu nome completo e tag.
+    # O nome é 'aline feliz', e a tag é 'side'.
+    show side aline feliz at left 
+    
+    s "Oi, eu sou a Aline! Minha imagem deve aparecer acima da caixa de texto."
+    m "Olá! Eu não tenho imagem lateral."
+    
+    # Exemplo: Ocultando a Side Image no final da fala
+    hide side aline feliz
+
+    s "Se você viu minha imagem acima da caixa, está funcionando!"
     m "Fim do teste."
 
     menu:
@@ -40,5 +51,3 @@ label start:
             jump continue
         "Sair":
             return
-
-    

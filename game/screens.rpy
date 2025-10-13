@@ -235,7 +235,7 @@ screen quick_menu():
 
     ## Ensure this appears on top of other screens.
     zorder 100
-    add "gui/quick_menu_bg.png" xalign 0.5 yalign 0.01  # Coloque o caminho da sua imagem aqui
+    add "gui/quick_menu_bg.png" xalign 0.5 yalign 0.001  # Coloque o caminho da sua imagem aqui
 
     if quick_menu:
         
@@ -272,71 +272,93 @@ style quick_button_text:
     properties gui.text_properties("quick_button")
 
 
-################################################################################
-## Main and Game Menu Screens
-################################################################################
+## Main Menu screen ############################################################
+##
+## Usada para exibir o menu principal quando o Ren'Py inicia.
+## Esta tela contém os botões que DEVEM sumir quando um submenu é clicado.
+
+screen main_menu():
+    # A tag 'menu' garante que esta tela interaja corretamente com os menus do jogo.
+    tag menu
+
+    # Este é um container que DEVE ser posicionado corretamente.
+    # Se você não tem uma imagem de fundo (scene mmbg) definida no script.rpy 
+    # para esta tela, adicione um fundo aqui, como: 
+    # add "fundo_principal.png"
+    add Movie(size=(config.screen_width, config.screen_height), play="gui/teste-animacao.webm")
+
+    # O VBOX contém todos os botões do Menu Principal.
+    vbox:
+        style_prefix "navigation"
+
+        # Posicionamento no Menu Principal:
+        # xpos 0.7 move o VBOX para 70% da largura da tela. Certifique-se de que 
+        # suas coordenadas ypos (250, -100, -300, etc.) não estejam empurrando
+        # os botões para fora da tela.
+        xpos 0.7
+        yalign 0.5
+        spacing gui.navigation_spacing
+
+        # BOTOES DO MENU PRINCIPAL
+        imagebutton auto "gui/button/novo_jogo_%s.png" action Start() xalign 0.5 yalign 0.5 ypos 250
+        imagebutton auto "gui/button/livro_%s.png" action ShowMenu("load") xpos 190 ypos -70
+
+        imagebutton auto "gui/button/opcoes_%s.png" action ShowMenu("preferences") xalign 0.5 yalign 0.1 ypos 140
+        imagebutton auto "gui/button/coin_%s.png" action ShowMenu("about") xpos 100 ypos -260
+        
+        # BOTOES CONDICIONAIS
+        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+            imagebutton auto "gui/button/info_%s.png" action ShowMenu("help") xpos 270 ypos -340
+        
+        if renpy.variant("pc"):
+            # O Quit neste contexto está no menu principal, então não precisa de confirmação
+            imagebutton auto "gui/button/sair_%s.png" action Quit() 
+        
+        # BOTÕES DE REDES SOCIAIS (Note o xpos -890, que pode estar muito fora da tela dependendo da sua resolução)
+        # Ajustei o zoom de Transform para 0.7 para que fiquem um pouco maiores.
+        imagebutton auto "gui/button/itchio_%s.svg" action ShowMenu("about") xpos -890 ypos -350 at Transform(zoom=0.7)
+        imagebutton auto "gui/button/steam_%s.svg" action ShowMenu("about") xpos -890 ypos -320 at Transform(zoom=0.7)
+        imagebutton auto "gui/button/instagram_%s.svg" action ShowMenu("about") xpos -890 ypos -290 at Transform(zoom=0.7)
+
 
 ## Navigation screen ###########################################################
 ##
-## This screen is included in the main and game menus, and provides navigation
-## to other menus, and to start the game.
+## Usada para exibir a navegação quando o jogador está dentro do jogo (game_menu)
+## ou quando um submenu é acessado.
 
 screen navigation():
+    # A tag 'menu' garante que esta tela interaja corretamente com os menus do jogo.
+    tag menu
+
+    # Este código só aparecerá se NÃO ESTIVERMOS no menu principal.
+    # Ele contém os botões laterais (ou superiores, dependendo do seu gui)
+    # que controlam Salvar, Carregar, etc.
 
     vbox:
         style_prefix "navigation"
         
-        if main_menu:
-            xpos 0.7
-        else:
-            xpos 80
-        
+        # Posicionamento no Game Menu (xpos 80)
+        xpos 80 
         yalign 0.5
-
         spacing gui.navigation_spacing
 
-        if main_menu:
-
-            imagebutton auto "gui/button/novo_jogo_%s.png" action Start()  xalign 0.5 yalign 0.5 ypos 250
-            imagebutton auto "gui/button/livro_%s.png" action ShowMenu("load") xpos 190 ypos -100
-
-            imagebutton auto "gui/button/opcoes_%s.png" action ShowMenu("preferences")  xalign 0.5 yalign 0.1 ypos 125
-            imagebutton auto "gui/button/coin_%s.png" action ShowMenu("about") xpos 100 ypos -300
-            
-            if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
-
-                ## Help isn't necessary or relevant to mobile devices.
-                imagebutton auto "gui/button/info_%s.png" action ShowMenu("help") xpos 270 ypos -370
-            if renpy.variant("pc"):
-                ## The quit button is banned on iOS and unnecessary on Android and Web.
-                imagebutton auto "gui/button/sair_%s.png" action Quit(confirm=not main_menu) 
-            imagebutton auto "gui/button/itchio_%s.svg" action ShowMenu("about") xpos -890 ypos -350 at Transform(zoom=0.5)
-            imagebutton auto "gui/button/steam_%s.svg" action ShowMenu("about") xpos -890 ypos -320 at Transform(zoom=0.5)
-            imagebutton auto "gui/button/instagram_%s.svg" action ShowMenu("about") xpos -890 ypos -290 at Transform(zoom=0.5)
-
-        else:
-
-            textbutton _("History") action ShowMenu("history")
-
-            textbutton _("Save") action ShowMenu("save")
-
-       
+        # BOTÕES PRINCIPAIS DO GAME MENU
+        textbutton _("History") action ShowMenu("history")
+        textbutton _("Save") action ShowMenu("save")
 
         if _in_replay:
-
             textbutton _("End Replay") action EndReplay(confirm=True)
-
         elif not main_menu:
-
+            # BOTÕES ADICIONAIS DO GAME MENU
             textbutton _("Main Menu") action MainMenu()
-            textbutton _("help") action ShowMenu("help")
-            textbutton _("about") action ShowMenu("about")
-            textbutton _("load") action ShowMenu("load")
+            textbutton _("Help") action ShowMenu("help")
+            textbutton _("About") action ShowMenu("about")
+            textbutton _("Load") action ShowMenu("load")
             textbutton _("Opções") action ShowMenu("preferences")
             textbutton _("Sair") action Quit(confirm=not main_menu)
 
 
-        
+# ESTILOS (MANTIDOS INTACTOS) ##################################################
 
 style navigation_button is gui_button
 style navigation_button_text is gui_button_text
@@ -348,81 +370,6 @@ style navigation_button:
 style navigation_button_text:
     properties gui.text_properties("navigation_button")
     xalign 0.5
-
-## Main Menu screen ############################################################
-##
-## Used to display the main menu when Ren'Py starts.
-##
-## http://www.renpy.org/doc/html/screen_special.html#main-menu
-
-screen main_menu():
-
-    ## This ensures that any other menu screen is replaced.
-    tag menu
-
-    style_prefix "main_menu"
-
-    add gui.main_menu_background zoom 0.70
-
-
-    ## This empty frame darkens the main menu.
-    frame:
-        xalign 0.4 ypos 180 
-
-    ## The use statement includes another screen inside this one. The actual
-    ## contents of the main menu are in the navigation screen.
-    use navigation
-
-    if gui.show_name:
-
-        vbox:
-            text "[config.name!t]":
-                style "main_menu_title"
-
-            text _("Ren'Py 7+ Edition"):
-                style "main_menu_version"
-
-
-style main_menu_frame is empty
-style main_menu_vbox is vbox
-style main_menu_text is gui_text
-style main_menu_title is main_menu_text
-style main_menu_version is main_menu_text
-
-style main_menu_frame:
-    xsize 280
-    yfill True
-
-    # background "gui/overlay/main_menu.png"
-
-style main_menu_quick_hbox is hbox:
-    background "gui/menu_bar.png"
-
-style main_menu_vbox:
-    xalign 0.5
-    xoffset -20
-    xsize 960
-    yalign 0.2
-    yoffset -20
-
-style main_menu_text:
-    properties gui.text_properties("main_menu", accent=True)
-
-style main_menu_title:
-    properties gui.text_properties("title")
-
-style main_menu_version:
-    properties gui.text_properties("version")
-
-
-## Game Menu screen ############################################################
-##
-## This lays out the basic common structure of a game menu screen. It's called
-## with the screen title, and displays the background, title, and navigation.
-##
-## The scroll parameter can be None, or one of "viewport" or "vpgrid". When
-## this screen is intended to be used with one or more children, which are
-## transcluded (placed) inside it.
 
 screen game_menu(title, scroll=None):
 
@@ -568,43 +515,43 @@ screen about():
             hbox:
                 spacing 15
                 text _("Updated Character Art") style "about_small"
-                text _("Deji")
+                text _("Maka")
 
             hbox:
                 spacing 15
                 text _("Original Character Art") style "about_small"
-                text _("Derik")
+                text _("Maka")
 
             null height 15
 
             hbox:
                 spacing 15
                 text _("Updated Background Art") style "about_small"
-                text _("Mugenjohncel")
+                text _("Maka, Raquel, Gemini.")
 
             hbox:
                 spacing 15
                 text _("Original Background Art") style "about_small"
-                text _("DaFool")
+                text _("Gemini")
 
             null height 15
 
             hbox:
                 spacing 15
                 text _("Music By") style "about_small"
-                text _("Alessio")
+                text _("Carlos")
 
             null height 15
 
             hbox:
                 spacing 15
                 text _("Update Written By") style "about_small"
-                text _("Lore")
+                text _("Iara")
 
             hbox:
                 spacing 15
                 text _("Originally Written By ") style "about_small"
-                text _("mikey (ATP Projects)")
+                text _("Maka e Iara")
 
 
             text _("\nMade with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only]")
