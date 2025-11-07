@@ -76,7 +76,6 @@ style frame:
     background Frame("gui/frame.png", gui.frame_borders, tile=gui.frame_tile)
 
 
-
 ################################################################################
 ## In-game screens
 ################################################################################
@@ -97,7 +96,6 @@ style frame:
 
 screen say(who, what):
     style_prefix "say"
-
     window:
         id "window"
 
@@ -235,7 +233,7 @@ screen quick_menu():
 
     ## Ensure this appears on top of other screens.
     zorder 100
-    add "gui/quick_menu_bg.png" xalign 0.5 yalign 0.001  # Coloque o caminho da sua imagem aqui
+    add "gui/quick_menu_bg.png" xalign 0.5 yalign 0.001
 
     if quick_menu:
         
@@ -248,7 +246,7 @@ screen quick_menu():
             imagebutton auto "gui/button/return_%s.png" action Rollback()
             # textbutton _("History") action ShowMenu('history')
             imagebutton auto "gui/button/play_%s.png" action Preference("auto-forward", "toggle")
-            imagebutton auto "gui/button/mochila_%s.png" action ShowMenu('save')
+            imagebutton auto "gui/button/mochila_%s.png" action Show("inventory")
             imagebutton auto "gui/button/save_%s.png" action QuickSave()
             # textbutton _("Q.Load") action QuickLoad()
             imagebutton auto "gui/button/preferencias_%s.png" action ShowMenu('preferences')
@@ -280,12 +278,13 @@ style quick_button_text:
 screen main_menu():
     # A tag 'menu' garante que esta tela interaja corretamente com os menus do jogo.
     tag menu
+    add Movie(size=(config.screen_width, config.screen_height), play="gui/teste-animacao.webm")
 
     # Este é um container que DEVE ser posicionado corretamente.
     # Se você não tem uma imagem de fundo (scene mmbg) definida no script.rpy 
     # para esta tela, adicione um fundo aqui, como: 
     # add "fundo_principal.png"
-    add Movie(size=(config.screen_width, config.screen_height), play="gui/teste-animacao.webm")
+    # add Movie(size=(config.screen_width, config.screen_height), play="gui/teste-animacao.webm")
 
     # O VBOX contém todos os botões do Menu Principal.
     vbox:
@@ -1064,6 +1063,19 @@ screen mouse_help():
         label _("Mouse Wheel Down")
         text _("Rolls forward to later dialogue.")
 
+screen narrator_window():
+    frame:
+        xalign 0.5
+        yalign 0.2   # posição vertical (0.0 = topo, 1.0 = base)
+        xsize 1600
+        ysize 250
+        background Frame("game\gui\textbox-narrador.png", 20, 20)  # você pode usar outra imagem
+        text what id "what":
+            xalign 0.1
+            yalign 0.5
+            size 32
+            color "#FFFFFF"
+
 
 screen gamepad_help():
 
@@ -1356,7 +1368,7 @@ style nvl_window:
     xfill True
     yfill True
 
-    background "gui/nvl.png"
+    background "nvl.png"
     padding gui.nvl_borders.padding
 
 style nvl_entry:

@@ -55,7 +55,7 @@ define gui.interface_text_color = '#ffffff'
 ## Fonts and Font Sizes ########################################################
 
 ## The font used for in-game text.
-define gui.text_font = "Jersey15-Regular.otf"
+define gui.text_font = "PixelOperator.ttf"
 
 ## The font used for character names.
 define gui.name_text_font = "Jersey25-Regular.otf"
@@ -64,7 +64,7 @@ define gui.name_text_font = "Jersey25-Regular.otf"
 define gui.interface_text_font = "Jersey25-Regular.otf"
 
 ## The size of normal dialogue text.
-define gui.text_size = 35
+define gui.text_size = 25
 
 ## The size of character names.
 define gui.name_text_size = 30
@@ -136,7 +136,7 @@ define gui.dialogue_xpos = 268
 define gui.dialogue_ypos = 65
 
 ## The maximum width of dialogue text, in pixels.
-define gui.dialogue_width = 744
+define gui.dialogue_width = 800
 
 ## The horizontal alignment of the dialogue text. This can be 0.0 for left-
 ## aligned, 0.5 for centered, and 1.0 for right-aligned.
@@ -365,7 +365,7 @@ define gui.nvl_borders = Borders(0, 10, 0, 20)
 
 ## The height of an NVL-mode entry. Set this to None to have the entries
 ## dynamically adjust height.
-define gui.nvl_height = 115
+define gui.nvl_height = None
 
 ## The spacing between NVL-mode entries when gui.nvl_height is None, and between
 ## NVL-mode entries and an NVL-mode menu.
@@ -403,6 +403,22 @@ define gui.nvl_button_xalign = 0.0
 
 define gui.language = "unicode"
 
+
+style narrador_window is window:
+    background Frame("gui/textbox-narrador.png", 20, 20)
+    xalign 0.9
+    yalign 0.6
+    xsize 1000
+    ysize 250
+    padding (40, 40)
+
+# Texto dentro da caixa do narrador
+style narrador_text is say_dialogue:
+    color "#000000"       # amarelo claro
+    size 42
+    text_align 0.1       # centraliza o texto
+    xalign 0.5
+    yalign 0.5
 
 ################################################################################
 ## Mobile devices
@@ -467,3 +483,5 @@ init python:
 
         ## Quick buttons.
         gui.quick_button_text_size = 20
+
+        
