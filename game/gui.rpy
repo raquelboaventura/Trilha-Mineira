@@ -407,6 +407,7 @@ define gui.language = "unicode"
 style narrador_window is window:
     background Frame("gui/textbox-narrador.png", 20, 20)
     xalign 0.9
+    xpos 1050
     yalign 0.6
     xsize 1000
     ysize 250
