@@ -1,8 +1,20 @@
 # 🗺️ Trilha Mineira
 
 ## Sobre o Projeto
+**Trilha Mineira** é um jogo de aventura e mistério desenvolvido em **Ren'Py** que coloca o jogador numa viagem interativa pela história de Minas Gerais. Três estudantes, reprovados em História, são transportados por um **Espírito Caótico** para uma dimensão onde eventos e personagens históricos se tornam reais; a única forma de voltar é desvendar segredos, completar quizzes e resolver enigmas baseados em fatos reais.
 
-**Trilha Mineira** é um jogo de aventura e mistério desenvolvido em **Ren'Py** que mergulha os jogadores na rica e fascinante história de Minas Gerais. A narrativa acompanha três jovens que, após reprovarem em História, são forçados a realizar um trabalho de última hora. No entanto, um **Espírito Caótico** resolve dar-lhes uma lição, transportando-os para uma dimensão onde a história é real e a única forma de voltar é desvendando os segredos do estado.
+Principais características:
+- Narrativa ramificada com diálogos interativos e escolhas que influenciam a progressão.
+- Encontros com NPCs históricos que fornecem informação, pistas e quizzes.
+- Salvamento automático e avaliação final do desempenho do jogador.
+- Mini-jogos e recursos educativos em desenvolvimento; foco em acessibilidade e conteúdo pedagógico.
+
+Tecnologias e como executar:
+- Motor: **Ren'Py** (scripts em Python).
+- Para rodar: instale o Ren'Py, clone o repositório e abra o projeto pelo Ren'Py Launcher.
+
+Estado do projeto:
+Protótipo funcional com conteúdo básico — melhorias planejadas incluem mais quizzes, mini-jogos, refinamento de diálogos, otimizações de acessibilidade e suporte multiplataforma. Contribuições são bem‑vindas via issues ou pull requests.
 
 Com a ajuda de um **Espírito Protetor**, os jogadores devem viajar pelas cidades históricas, interagir com figuras icônicas e responder a quizzes para salvar o seu semestre!
 
@@ -24,7 +36,7 @@ O jogo leva o jogador a uma jornada de descoberta pelas seguintes joias de Minas
 
 | **Personagem** | **Papel no Jogo** |
 | :--- | :--- |
-| **Aline, Julia e Roberto** | Os três estudantes que embarcam na missão de resgate histórico. |
+| **Aline, Julia e você** | Os três estudantes que embarcam na missão de resgate histórico. |
 | **Espírito Caótico** | A entidade que inicia a aventura, buscando ensinar uma lição. |
 | **Espírito Protetor** | O guia que teletransporta os jovens e oferece ajuda crucial. |
 | **NPCs Históricos** | Figuras como **Tiradentes**, **Chico Rei**, **Aleijadinho** e **Chica da Silva**, que fornecerão informações essenciais. |
