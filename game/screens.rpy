@@ -152,7 +152,7 @@ style say_dialogue:
     xsize gui.dialogue_width
     ypos gui.dialogue_ypos
 
-    adjust_spacing False
+    adjust_spacing True
 
 
 ## Input screen ################################################################
@@ -228,6 +228,32 @@ style choice_button_text is default:
 ##
 ## The quick menu is displayed in-game to provide easy access to the out-of-game
 ## menus.
+screen nome_input():
+    add Movie(size=(1280, 720)) xpos 0 ypos 0
+    on "show" action Play("movie", "gui/teste-animacao.webm", loop=True)
+    on "hide" action Stop("movie")
+
+    frame:
+        background "gui/textbox_input_name.png"
+        align (0.45, 0.2)  # centraliza o frame na tela
+
+        has vbox:
+            spacing 30 
+            xalign 0.5  # <-- centraliza o conteúdo dentro da caixa
+            yalign 0.5
+
+        text "Escreva seu nome:" size 40 color "#FFFFFF" xalign 0.0 xoffset 50 yoffset 50
+
+        input:
+            value VariableInputValue("player_name")
+            length 20
+            pixel_width 400
+            color "#FFFFFF"
+            xalign 0.5 xoffset 50 yoffset 50
+
+        textbutton "Confirmar":
+            xalign 0.5 xoffset 50 yoffset 50
+            action [Hide(""), Return(player_name)]
 
 screen quick_menu():
 
@@ -278,8 +304,8 @@ style quick_button_text:
 screen main_menu():
     # A tag 'menu' garante que esta tela interaja corretamente com os menus do jogo.
     tag menu
-    add Movie(size=(config.screen_width, config.screen_height), play="gui/teste-animacao.webm")
-
+    # add Movie(size=(config.screen_width, config.screen_height), play="gui/teste-animacao.webm")
+    add "gui/bg.png" xalign 0.5 yalign 0.5 fit "cover"
     # Este é um container que DEVE ser posicionado corretamente.
     # Se você não tem uma imagem de fundo (scene mmbg) definida no script.rpy 
     # para esta tela, adicione um fundo aqui, como: 

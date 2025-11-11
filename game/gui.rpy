@@ -85,7 +85,7 @@ define gui.title_text_size = 50
 ## Main and Game Menus #########################################################
 
 ## The images used for the main and game menus.
-define gui.main_menu_background = Movie(play="gui/teste-animacao.webm", fit="cover") 
+define gui.main_menu_background = "gui/bg.png"
 define gui.game_menu_background = "gui/game_menu.png"
 
 ## The color of the main menu.
@@ -98,7 +98,7 @@ define gui.main_menu_text_color = "#363636"
 ## time.
 
 ## The height of the textbox containing dialogue.
-define gui.textbox_height = 200
+define gui.textbox_height = 210
 
 ## The placement of the textbox vertically on the screen. 0.0 is the top, 0.5 is
 ## center, and 1.0 is the bottom.
@@ -132,11 +132,11 @@ define gui.namebox_tile = False
 ## The placement of dialogue relative to the textbox. These can be a whole
 ## number of pixels relative to the left or top side of the textbox, or 0.5 to
 ## center.
-define gui.dialogue_xpos = 268
+define gui.dialogue_xpos = 300
 define gui.dialogue_ypos = 65
 
 ## The maximum width of dialogue text, in pixels.
-define gui.dialogue_width = 800
+define gui.dialogue_width = 700
 
 ## The horizontal alignment of the dialogue text. This can be 0.0 for left-
 ## aligned, 0.5 for centered, and 1.0 for right-aligned.
@@ -415,8 +415,9 @@ style narrador_window is window:
 
 # Texto dentro da caixa do narrador
 style narrador_text is say_dialogue:
-    color "#000000"       # amarelo claro
-    size 42
+    font "fonts/Quicksand-SemiBold.ttf"
+    color "#2b0606"       # amarelo claro
+    size 25
     text_align 0.1       # centraliza o texto
     xalign 0.5
     yalign 0.5

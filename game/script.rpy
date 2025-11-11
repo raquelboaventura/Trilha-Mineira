@@ -1,7 +1,7 @@
 ﻿# Definição de Personagens Existentes (s, m)
 define s = Character(_("Aline"), color="#f75f00", image="side")
 define j = Character(_("Julia"), color="#cc4ac6", image="side") # P1 no seu roteiro
-define m = Character(_("Eu"), color="#050579") # J (Jogador) no seu roteiro
+define m = Character(_("[player_name]"), color="#050579") # J (Jogador) no seu roteiro
 define c = Character(_("Charmes"), color="#b90000")
 # Novos Personagens para o Diálogo
 define p = Character(_("Professor"), color="#27bd2e", image="side") # Novo personagem
@@ -57,26 +57,53 @@ define flash = Fade(0.1, 0.0, 0.5, color="#fff")
 # Flash preto (para apagões ou cortes rápidos)
 define flash_black = Fade(0.1, 0.0, 0.5, color="#000")
 
+default player_name = ""
+
 transform logoappear:
     xalign .5 yalign .3 yoffset 20 alpha 0
     linear .5 alpha 1.0 yoffset 0
 
 transform slowbounce:
+    xalign 0.0
+    yalign 1.0
+    yoffset 0
     linear .2 yoffset 12
     linear .2 yoffset 0
 
 transform bounce:
+    xalign 0.0
+    yalign 1.0
     yoffset 0
     linear .1 yoffset 12
     linear .1 yoffset 0
 
 
 transform bounce2:
+    xalign 0.0
+    yalign 1.0
     yoffset 0
     linear .07 yoffset 12
     linear .07 yoffset 0
     linear .07 yoffset 8
     linear .07 yoffset 0
+
+transform shake:
+    xalign 0.0
+    yalign 1.0
+    linear 0.05 xoffset -10
+    linear 0.05 xoffset 10
+    repeat 5
+    xoffset 0
+
+transform laugh:
+    xalign 0.0
+    yalign 1.0
+    rotate 5
+    linear 0.06 rotate -5
+    linear 0.06 rotate 5
+    repeat 4
+    rotate 0
+
 
 # Imagens de fundo e menu
 default book = False
@@ -125,22 +152,44 @@ label showtitle:
 # Início do Jogo e Cena 1 (Sala de Aula)
 
 label start:
-    
+    $ player_name = renpy.call_screen("nome_input")
+    if player_name:
+        $ player_name = player_name.strip()
+    else:
+        $ player_name = "Jogador"
+    n "Seja bem vindo [player_name]! Espero que você goste da história que preparamos para você."
     $ preferences.text_cps = 40
     stop music fadeout 1.0
     scene escola
     # --- Início da nova história: Cena 1 - Sala de aula ---
     # Professor fala
-    show professor normal at slowbounce
+    show professor normal at left, slowbounce
     with dissolve
     p "... então, foi assim que o Palácio da Liberdade foi construído. É uma história fascinante, mas pouco conhecida pelos mineiros de hoje."
     hide professor normal
+    python:
+        itens = ["atletico", "bolinho", "cruzeiro", 
+        "diamante", "doce de leite", "niobio", "ouro", 
+        "pao de queijo", "pastel e caldo de cana", "queijo"]
+
+        def adicionar_item():
+            random_item = renpy.random.choice(itens)
+            if random_item not in inventory.slots:
+                inventory.add_item(random_item, quantity=random.randint(1, 99))
+
+        
     play sound "audio/sino_escola.ogg" 
 
     n "O sino toca, encerrando a aula com um som estridente."
 
-    show professor normal at left
+    show professor normal at left, bounce
     with dissolve
+    $ adicionar_item()
+    $ adicionar_item()
+    $ adicionar_item()
+    $ adicionar_item()
+    $ adicionar_item()
+    $ adicionar_item()
     p "E por hoje é isso, pessoal. Dispensados. Menos vocês, {b}Eu{/b}, {b}Julia{/b} e {b}Aline{/b}. Precisamos conversar."
     hide professor normal
 
@@ -173,7 +222,7 @@ label start:
             m "Quem fica de recuperação em história, professor? Nem sabia que isso era possível!"
 
     # Aline fala de novo
-    show aline surpresa at left
+    show aline surpresa at left, bounce
     with dissolve
     s "Quem fica de recuperação em {size=30}{i} {bt=3}história{/bt}{/i}{/size}, professor? "
     hide aline surpresa
@@ -190,7 +239,7 @@ label start:
     p "Vocês sabem que eu detesto ter que fazer isso, mas o desempenho de vocês esse semestre foi {move}péssimo{/move}. {b}Aline{/b} ficou fazendo crochê e não prestou atenção no trabalho que foi feito em sala de aula."
     hide professor pensativo
 
-    show professor triste at left
+    show professor triste at left, bounce2
     with dissolve
     p "{b}Julia{/b} entregou pelo menos umas duas provas... ia dizer em branco, mas elas estavam {size=30}{b}sujas de terra.{/b}{/size} E isso porque nem tem terra dentro da sala!"
     hide professor triste
@@ -226,14 +275,14 @@ label start:
 
     m "Não, pessoal! Essa é uma expressão que significa que agora não adianta mais. Tipo “não adianta chorar pelo leite derramado”. Ele quis dizer que estamos mesmo ferrados."
 
-    show aline timida at left
+    show aline timida at left, bounce
     with dissolve
     s "Ah."
     hide aline timida
 
     n "O professor segurou o riso e entregou uma folha de papel para cada. Bem no alto, em letras garrafais, estava escrito {b}“Trabalho em Grupo”{/b}."
 
-    show julia brava at left
+    show julia brava at left, shake
     with dissolve
     j "Não. {glitch=1.1}{color=#0f0}{b}Tudo menos isso.{/b}{/color}{/glitch} Pode me reprovar, chamar minha mãe, o papa... quem você quiser, mas não passa trabalho em grupo! Já não basta ser recuperação, ainda é em grupo?!"
     hide julia brava
@@ -248,12 +297,12 @@ label start:
     p "É isso ou um ensaio de 50 páginas sobre a história de Minas Gerais. À mão."
     hide professor cansado
 
-    show aline assustada at left
+    show aline super_saiaji at left
     with dissolve
     s "Antes estava ruim, agora piorou..."
     hide aline assustada
 
-    show professor feliz at left
+    show professor feliz at left, laugh
     with dissolve
     p "Pensem nisso como uma forma de fazer novos amigos, que tal? Sei que vocês vão se dar bem, sem dúvida alguma."
     hide professor feliz
@@ -465,7 +514,8 @@ label cena2_biblioteca:
     # Efeito de voz misteriosa surgindo
     with dissolve
 
+    pause .5
     play sound "audio/charmes.ogg" fadein 0.5
-    c "Eu {color=#ff0000}{b}odeio{/b}{/color} meu trabalho."
+    c "Eu {color=#00FF00}{b}odeio{/b}{/color} meu trabalho."
 
     return
